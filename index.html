@@ -498,24 +498,40 @@
   // Waitlist handler
   function handleWaitlist(formId, emailId, successId) {
     const email = document.getElementById(emailId).value.trim();
-    if (!email || !email.includes('@')) return;
+    if (!email || !email.includes('@') || !email.includes('.')) return;
 
     const form = document.getElementById(formId);
     const success = document.getElementById(successId);
+    const btn = form.querySelector('.waitlist-btn');
 
-    // TODO: Replace with your actual endpoint (Supabase function, Vercel API route, Mailchimp, etc.)
-    // Example: fetch('/api/waitlist', { method: 'POST', body: JSON.stringify({ email }) })
+    // Disable button while submitting
+    if (btn) { btn.textContent = 'JOINING...'; btn.disabled = true; }
 
-    // For now, just show success state
-    form.style.display = 'none';
-    success.classList.add('show');
-
-    // Store locally as backup
-    try {
-      const existing = JSON.parse(localStorage.getItem('suavo_waitlist') || '[]');
-      existing.push({ email, timestamp: new Date().toISOString() });
-      localStorage.setItem('suavo_waitlist', JSON.stringify(existing));
-    } catch(e) {}
+    fetch('https://sgsquyvhrtdmiszonuer.supabase.co/rest/v1/waitlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': 'sb_publishable_d6rZP8vfKEgjjd1KfZTQEw_OAHBqXcw',
+        'Authorization': 'Bearer sb_publishable_d6rZP8vfKEgjjd1KfZTQEw_OAHBqXcw',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ email, source: 'landing_page' })
+    })
+    .then(res => {
+      if (res.ok || res.status === 201) {
+        form.style.display = 'none';
+        success.classList.add('show');
+      } else if (res.status === 409) {
+        // Duplicate email — still show success (don't reveal they're already signed up)
+        form.style.display = 'none';
+        success.classList.add('show');
+      } else {
+        if (btn) { btn.textContent = 'TRY AGAIN'; btn.disabled = false; }
+      }
+    })
+    .catch(() => {
+      if (btn) { btn.textContent = 'TRY AGAIN'; btn.disabled = false; }
+    });
   }
 </script>
 </body>
