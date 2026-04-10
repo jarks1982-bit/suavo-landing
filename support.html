@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SUAVO — Support</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E11D48;
+    --black: #0C0C0C;
+    --panel: #111110;
+    --deep: #161615;
+    --mid: #5A5A56;
+    --soft: #8A8A84;
+    --warmwhite: #F5F4F1;
+    --cream: #D4D1CB;
+    --hd: 'Bebas Neue', Impact, sans-serif;
+    --bd: 'Manrope', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--bd); background: var(--black); color: var(--warmwhite); overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 40px; height: 64px; display: flex; align-items: center; justify-content: space-between; background: rgba(12,12,12,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .nav-logo { font-family: var(--hd); font-size: 28px; color: var(--warmwhite); letter-spacing: 3px; text-decoration: none; }
+  .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--warmwhite); }
+
+  /* REDLINE */
+  .redline { height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); box-shadow: 0 0 12px rgba(225,29,72,0.5); animation: breathe 3s ease-in-out infinite; position: relative; overflow: hidden; }
+  .redline::after { content: ''; position: absolute; top: 0; left: -100%; width: 40%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent); animation: shine 4s ease-in-out infinite; }
+  @keyframes breathe { 0%,100%{opacity:.4} 50%{opacity:1} }
+  @keyframes shine { 0%{left:-100%} 60%,100%{left:200%} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  /* HERO */
+  .support-hero { padding: 120px 40px 60px; max-width: 800px; margin: 0 auto; animation: fadeUp 0.8s ease both; }
+  .hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .hero-headline { font-family: var(--hd); font-size: clamp(48px, 8vw, 80px); line-height: 0.9; letter-spacing: 4px; color: var(--warmwhite); margin-bottom: 20px; }
+  .hero-sub { font-size: 16px; font-weight: 500; line-height: 1.7; color: var(--soft); max-width: 520px; }
+
+  /* CONTENT */
+  .support-content { max-width: 800px; margin: 0 auto; padding: 0 40px 100px; }
+
+  /* CONTACT CARD */
+  .contact-card { background: var(--panel); border: 1px solid rgba(255,255,255,0.06); border-left: 3px solid var(--red); border-radius: 4px; padding: 32px; margin-bottom: 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+  .contact-card-text h2 { font-family: var(--hd); font-size: 24px; letter-spacing: 2px; color: var(--warmwhite); margin-bottom: 8px; }
+  .contact-card-text p { font-size: 14px; color: var(--soft); line-height: 1.6; }
+  .contact-email { display: inline-flex; align-items: center; gap: 10px; background: var(--red); color: white; font-family: var(--bd); font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; padding: 14px 28px; border-radius: 2px; text-decoration: none; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
+  .contact-email:hover { background: #be1239; transform: translateY(-1px); }
+
+  /* SECTION HEADERS */
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+
+  /* FAQ */
+  .faq-list { display: flex; flex-direction: column; gap: 2px; margin-bottom: 56px; }
+  .faq-item { background: var(--panel); border: 1px solid rgba(255,255,255,0.04); border-radius: 4px; overflow: hidden; }
+  .faq-question { width: 100%; background: none; border: none; padding: 22px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; text-align: left; color: var(--warmwhite); font-family: var(--bd); font-size: 15px; font-weight: 600; line-height: 1.4; transition: background 0.2s; }
+  .faq-question:hover { background: rgba(255,255,255,0.03); }
+  .faq-icon { flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, transform 0.25s; }
+  .faq-icon svg { width: 10px; height: 10px; fill: var(--soft); transition: transform 0.25s; }
+  .faq-item.open .faq-icon { border-color: var(--red); transform: rotate(45deg); }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
+  .faq-answer-inner { padding: 0 24px 22px; font-size: 14px; color: var(--soft); line-height: 1.75; }
+  .faq-answer-inner a { color: var(--cream); text-underline-offset: 3px; }
+  .faq-item.open .faq-answer { max-height: 400px; }
+
+  /* LEGAL LINKS */
+  .legal-links { display: flex; gap: 16px; flex-wrap: wrap; }
+  .legal-link { display: inline-flex; align-items: center; gap: 8px; background: var(--panel); border: 1px solid rgba(255,255,255,0.06); border-radius: 2px; padding: 14px 22px; color: var(--cream); font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+  .legal-link:hover { border-color: rgba(255,255,255,0.15); color: var(--warmwhite); }
+  .legal-link svg { width: 14px; height: 14px; fill: var(--soft); }
+
+  /* FOOTER */
+  footer { border-top: 1px solid rgba(255,255,255,0.06); padding: 32px 40px; }
+  .footer-inner { max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-logo { font-family: var(--hd); font-size: 22px; color: var(--warmwhite); letter-spacing: 3px; text-decoration: none; }
+  .footer-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
+  .footer-links a { font-size: 11px; font-weight: 600; letter-spacing: 1px; color: var(--soft); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--warmwhite); }
+  .footer-copy { font-size: 11px; color: var(--mid); }
+
+  @media (max-width: 600px) {
+    nav { padding: 0 20px; }
+    .support-hero { padding: 100px 20px 40px; }
+    .support-content { padding: 0 20px 80px; }
+    .contact-card { flex-direction: column; }
+    .nav-links { display: none; }
+    footer { padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="https://suavo.app" class="nav-logo">SUAVO</a>
+  <ul class="nav-links">
+    <li><a href="https://suavo.app">Home</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+    <li><a href="terms.html">Terms</a></li>
+  </ul>
+</nav>
+
+<div class="support-hero">
+  <div class="hero-eyebrow">Help & Support</div>
+  <h1 class="hero-headline">WE'VE GOT YOU.</h1>
+  <p class="hero-sub">Questions about Suavo, your account, or your subscription — we're here. Most answers are below. If not, email us directly.</p>
+</div>
+
+<div class="redline"></div>
+
+<div class="support-content">
+
+  <!-- CONTACT -->
+  <div class="contact-card">
+    <div class="contact-card-text">
+      <h2>EMAIL SUPPORT</h2>
+      <p>We respond within 24 hours, usually faster.<br>Include your account email so we can find you quickly.</p>
+    </div>
+    <a href="mailto:legal@suavo.app" class="contact-email">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      legal@suavo.app
+    </a>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section-label">Frequently Asked Questions</div>
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        What is Suavo and how does it work?
+        <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 0v12M0 6h12"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Suavo is an AI-powered dating and relationship coaching app. You share conversation context — by pasting messages or uploading screenshots — and Suavo reads the situation, builds a behavioral profile of the person you're talking to, and coaches you on what to say, when to say it, and when to say nothing. It's not a message generator. It's a coaching layer that helps you understand her so you can show up as the best version of yourself.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        Is my conversation data private and secure?
+        <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 0v12M0 6h12"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Yes. Screenshots you upload are processed in memory and immediately discarded — they are never stored on our servers. Conversation data you share is stored securely in your account using encrypted storage with row-level security, meaning only you can access your data. Your data is sent to Anthropic (our AI provider) solely to generate coaching responses — they do not use it for model training. We never sell or share your personal data. See our <a href="privacy.html">Privacy Policy</a> for full details.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        What's included in the free plan vs. Premium?
+        <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 0v12M0 6h12"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">The free plan gives you access to 2 contacts and 5 coaching sessions per day — enough to try the full experience. Premium ($11.99/month) gives you unlimited contacts, unlimited sessions, full Suavo Knows behavioral insights, complete outcome timeline, and access to all coaching modes including Date Mode. You can upgrade anytime from within the app.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        How do I cancel my subscription?
+        <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 0v12M0 6h12"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Suavo subscriptions are managed through Apple. To cancel: open the Settings app on your iPhone → tap your name → Subscriptions → Suavo → Cancel Subscription. Cancellations take effect at the end of your current billing period. We do not offer refunds for partial subscription periods, but you'll retain Premium access until the period ends.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        How do I delete my account and all my data?
+        <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 0v12M0 6h12"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">You can delete your account directly in the app. Go to Settings → scroll to the bottom → Delete Account. You'll be asked to confirm. Once confirmed, all your data — contacts, coaching history, sessions, and account — is permanently deleted. This cannot be undone. If you have a Premium subscription, cancel it in your Apple Settings first to avoid future charges.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        Can I delete individual contacts?
+        <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 0v12M0 6h12"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Yes. Open any contact → scroll to the bottom → you'll find both Archive and Delete Contact options. Archiving hides the contact from your home screen while preserving all coaching history. Deleting permanently removes the contact and all associated data including coaching sessions, intel, and momentum history. Deletion cannot be undone.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        Does Suavo store the screenshots I upload?
+        <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 0v12M0 6h12"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">No. Screenshots are processed in memory only. The image is sent to our AI provider for text extraction, used to generate coaching, and then discarded immediately. We never store, save, or retain copies of your screenshots. Only the extracted coaching insights — not the images themselves — are preserved in your account.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        I'm having a technical issue. What should I do?
+        <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 0v12M0 6h12"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">First, try force-quitting the app and reopening it. If the issue persists, make sure you have a stable internet connection — Suavo requires connectivity to generate coaching. If you're still experiencing problems, email us at <a href="mailto:legal@suavo.app">legal@suavo.app</a> with a description of the issue and your account email. Screenshots of the problem are helpful.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        Is Suavo designed to help manipulate people?
+        <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 0v12M0 6h12"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">No. Suavo's core principle is understanding, not manipulation. The goal is to help you communicate more authentically — to show up as the best version of yourself, not to trick someone into liking you. Suavo actively refuses to generate messages designed to pressure, deceive, or manipulate. If someone has said no or asked you to stop, Suavo will tell you to respect it. The product is built for people who genuinely want to connect.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" onclick="toggle(this)">
+        I forgot my password. How do I reset it?
+        <span class="faq-icon"><svg viewBox="0 0 12 12"><path d="M6 0v12M0 6h12"/></svg></span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">On the login screen, tap "Forgot password?" and enter your account email. You'll receive a reset link within a few minutes. Check your spam folder if it doesn't arrive. If you signed up with Apple Sign-In, password reset doesn't apply — use the same Apple ID you originally used to sign in.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LEGAL LINKS -->
+  <div class="section-label">Legal</div>
+  <div class="legal-links">
+    <a href="privacy.html" class="legal-link">
+      <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+      Privacy Policy
+    </a>
+    <a href="terms.html" class="legal-link">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z"/></svg>
+      Terms of Service
+    </a>
+  </div>
+
+</div>
+
+<div class="redline"></div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="https://suavo.app" class="footer-logo">SUAVO</a>
+    <ul class="footer-links">
+      <li><a href="https://suavo.app">Home</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+      <li><a href="mailto:legal@suavo.app">Contact</a></li>
+    </ul>
+    <div class="footer-copy">&copy; 2026 Redline Labs LLC</div>
+  </div>
+</footer>
+
+<script>
+  function toggle(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+  const obs = new IntersectionObserver(e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('visible') }), {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
